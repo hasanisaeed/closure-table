@@ -23,27 +23,17 @@ class AccountSubsidiary(models.Model):
 
 
 class AccountDetail(ClosureModel):
-    parent2 = models.ForeignKey('self',
-                                on_delete=models.CASCADE,
-                                related_name='children',
-                                null=True,
-                                blank=True)
+    parent = models.ForeignKey('self',
+                               on_delete=models.CASCADE,
+                               related_name='children',
+                               null=True,
+                               blank=True)
 
     account_subsidiary = models.ForeignKey(AccountSubsidiary,
                                            on_delete=models.PROTECT,
                                            related_name='account_details')
 
-    # Includes all parent codings.
     coding = models.PositiveBigIntegerField(null=True, blank=True)
-
-    # detail_person = models.ForeignKey('DetailPerson', null=True, blank=True, on_delete=models.PROTECT,
-    #                                   related_name='account_details')
-    # detail_bank = models.ForeignKey('DetailBank', null=True, blank=True, on_delete=models.PROTECT,
-    #                                 related_name='account_details')
-    # detail_expenditure = models.ForeignKey('DetailExpenditure', null=True, blank=True, on_delete=models.PROTECT,
-    #                                        related_name='account_details')
-    # detail_other = models.ForeignKey('DetailOther', null=True, blank=True, on_delete=models.PROTECT,
-    #                                  related_name='account_details')
 
     class ClosureMeta(object):
         """Closure options."""
@@ -51,36 +41,3 @@ class AccountDetail(ClosureModel):
 
     def __repr__(self):
         return self.coding
-
-# class B(models.Model):
-#     """A test model for foreign keys"""
-#     b_name = models.CharField(max_length=32)
-#
-#
-# class AccountDetail(models.Model):
-#     account_subsidiary = models.ForeignKey(AccountSubsidiary, on_delete=models.PROTECT, related_name='account_details')
-#     # Includes all parent codings.
-#     coding = models.PositiveBigIntegerField(null=True, blank=True)
-#     detail_person = models.ForeignKey('DetailPerson', null=True, blank=True, on_delete=models.PROTECT,
-#                                       related_name='account_details')
-#     detail_bank = models.ForeignKey('DetailBank', null=True, blank=True, on_delete=models.PROTECT,
-#                                     related_name='account_details')
-#     detail_expenditure = models.ForeignKey('DetailExpenditure', null=True, blank=True, on_delete=models.PROTECT,
-#                                            related_name='account_details')
-#     detail_other = models.ForeignKey('DetailOther', null=True, blank=True, on_delete=models.PROTECT,
-#                                      related_name='account_details')
-
-
-# class AccountDetailLevelTwo(models.Model):
-#     account_detail = models.ForeignKey(AccountDetail, on_delete=models.PROTECT,
-#                                        related_name='account_details_level_two')
-#     # Includes all parent codings.
-#     coding = models.PositiveBigIntegerField(null=True, blank=True)
-#     detail_person = models.ForeignKey('DetailPerson', null=True, blank=True, on_delete=models.PROTECT,
-#                                       related_name='account_details_level_two')
-#     detail_bank = models.ForeignKey('DetailBank', null=True, blank=True, on_delete=models.PROTECT,
-#                                     related_name='account_details_level_two')
-#     detail_expenditure = models.ForeignKey('DetailExpenditure', null=True, blank=True, on_delete=models.PROTECT,
-#                                            related_name='account_details_level_two')
-#     detail_other = models.ForeignKey('DetailOther', null=True, blank=True, on_delete=models.PROTECT,
-#                                      related_name='account_details_level_two')
